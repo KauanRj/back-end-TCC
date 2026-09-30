@@ -1,4 +1,4 @@
-package com.tcc.back_end.Model;
+package com.tcc.back_end.Model.Enum;
 
 public enum TipoMarcacao {
     ENTRADA,

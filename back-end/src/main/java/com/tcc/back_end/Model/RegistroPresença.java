@@ -1,15 +1,23 @@
 package com.tcc.back_end.Model;
 
+import com.tcc.back_end.Model.Enum.StatusPresenca;
+import com.tcc.back_end.Model.Enum.TipoMarcacao;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class RegistroPresença {
-    private int id;
+    private Integer id;
     private LocalDate data;
     private LocalTime horario;
     private StatusPresenca status;
     private TipoMarcacao tipo;
     private Aluno aluno;
+
+
+    public RegistroPresença(){
+
+    }
 
     public RegistroPresença(int id, LocalDate data, LocalTime horario, StatusPresenca status, TipoMarcacao tipo, Aluno aluno) {
         this.id = id;
