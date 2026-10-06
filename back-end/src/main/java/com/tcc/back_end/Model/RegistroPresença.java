@@ -19,7 +19,7 @@ public class RegistroPresença {
 
     }
 
-    public RegistroPresença(int id, LocalDate data, LocalTime horario, StatusPresenca status, TipoMarcacao tipo, Aluno aluno) {
+    public RegistroPresença(Integer id, LocalDate data, LocalTime horario, StatusPresenca status, TipoMarcacao tipo, Aluno aluno) {
         this.id = id;
         this.data = data;
         this.horario = horario;
@@ -32,7 +32,7 @@ public class RegistroPresença {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
