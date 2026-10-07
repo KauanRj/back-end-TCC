@@ -1,6 +1,7 @@
 package com.tcc.back_end.Controller;
 
 
+import com.tcc.back_end.Model.Aluno;
 import com.tcc.back_end.Model.RegistroPresença;
 import com.tcc.back_end.Service.PresencaService;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,11 @@ public class PresencaController {
 
     @GetMapping("/listpres")
     public List<RegistroPresença> getListaRegistro(){ return presencaService.getListaRegistro();}
+
+    @GetMapping("/enc/{uid}")
+    public String identificarAlunoPeloCartao(@PathVariable String uid){
+        return presencaService.identificarAlunoPeloCartao(uid);
+    }
 
 
 

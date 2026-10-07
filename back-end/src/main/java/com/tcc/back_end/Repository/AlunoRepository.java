@@ -24,4 +24,14 @@ public class AlunoRepository {
     public List<Aluno> getListaDeAlunos(){
         return listaDeAlunos;
     }
+
+    public String identificarAlunoPeloCartao(String uid){
+        for (Aluno a : listaDeAlunos) {
+            if (a.getCartao().getUid().equals(uid)) {
+                return a.getNome();
+            }
+
+        }
+        return "Aluno não encotrado";
+    }
 }

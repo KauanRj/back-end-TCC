@@ -23,4 +23,5 @@ public class PresencaRepository {
     public List<RegistroPresença> getListaRegistro(){
         return listaRegistro;
     }
+
 }
