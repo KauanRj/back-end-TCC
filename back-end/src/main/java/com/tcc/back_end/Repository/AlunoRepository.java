@@ -34,4 +34,14 @@ public class AlunoRepository {
         }
         return "Aluno não encotrado";
     }
+
+    public boolean verificarCartaoAtivo(String uid){
+        for (Aluno a : listaDeAlunos) {
+            if (a.getCartao().getUid().equals(uid)) {
+                return a.getCartao().isAtivo();
+            }
+
+        }
+        return false;
+    }
 }
