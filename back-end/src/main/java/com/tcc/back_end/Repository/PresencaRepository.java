@@ -8,16 +8,14 @@ import java.util.*;
 @Repository
 public class PresencaRepository {
 
-    private List<RegistroPresença> listaRegistro;
+    private List<RegistroPresença> listaRegistro = new ArrayList<>();
 
-    public PresencaRepository(List<RegistroPresença> listaRegistro) {
-        this.listaRegistro = listaRegistro;
-    }
+
 
     public String RegistrarPresenca(RegistroPresença registroPresença){
         this.listaRegistro.add(registroPresença);
 
-        return "Registro salvo!!";
+        return "Registro salvo com sucesso!!";
     }
 
     public List<RegistroPresença> getListaRegistro(){

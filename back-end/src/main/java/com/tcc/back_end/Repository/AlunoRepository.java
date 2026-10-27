@@ -1,7 +1,6 @@
 package com.tcc.back_end.Repository;
 
 import com.tcc.back_end.Model.Aluno;
-import com.tcc.back_end.Model.RegistroPresença;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -33,6 +32,16 @@ public class AlunoRepository {
 
         }
         return "Aluno não encotrado";
+    }
+
+    public Aluno buscarAlunoPeloCartao(String uid){
+        for (Aluno a : listaDeAlunos) {
+            if (a.getCartao().getUid().equals(uid)) {
+                return a;
+            }
+
+        }
+        return null;
     }
 
     public boolean verificarCartaoAtivo(String uid){

@@ -19,7 +19,7 @@ public class PresencaController {
         this.presencaService = presencaService;
     }
 
-    @PostMapping("/reg")
+    @PostMapping("/geg")
     public String RegistrarPresenca(@RequestBody RegistroPresença registroPresença){
         return presencaService.RegistrarPresença(registroPresença);
     }
@@ -27,7 +27,7 @@ public class PresencaController {
     @GetMapping("/listpres")
     public List<RegistroPresença> getListaRegistro(){ return presencaService.getListaRegistro();}
 
-    @GetMapping("/enc/{uid}")
+    @GetMapping("/ind/{uid}")
     public String identificarAlunoPeloCartao(@PathVariable String uid){
         return presencaService.identificarAlunoPeloCartao(uid);
     }
@@ -40,6 +40,16 @@ public class PresencaController {
     @GetMapping("/hr/{horario}")
     public StatusPresenca definirStatusPresença(@PathVariable LocalTime horario){
         return presencaService.definirStatusPresença(horario);
+    }
+
+    @GetMapping("/enc/{uid}")
+    public Aluno buscarAlunoPeloCartao(@PathVariable String uid){
+        return presencaService.buscarAlunoPeloCartao(uid);
+    }
+
+    @GetMapping("reg/{uid}")
+    public String registrarPresenca(@PathVariable String uid){
+        return presencaService.registrarPresenca(uid);
     }
 
 

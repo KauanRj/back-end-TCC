@@ -76,13 +76,5 @@ public class RegistroPresença {
         this.aluno = aluno;
     }
 
-    public StatusPresenca calcularStatus(){
-        LocalTime limite = LocalTime.of(7,10);
 
-        if(horario.isAfter(limite)){
-            return StatusPresenca.ATRASADO;
-        }
-
-        return StatusPresenca.PRESENTE;
-    }
 }

@@ -8,6 +8,7 @@ import com.tcc.back_end.Repository.AlunoRepository;
 import com.tcc.back_end.Repository.PresencaRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 @Service
@@ -22,13 +23,8 @@ public class PresencaService {
         this.alunorepository = alunorepository;
     }
 
-    public String RegistrarPresença(RegistroPresença registroPresença){
-        return presencarepository.RegistrarPresenca(registroPresença);
-    }
 
-    public List<RegistroPresença> getListaRegistro(){
-        return presencarepository.getListaRegistro();
-   }
+
 
    public String identificarAlunoPeloCartao(String uid){
         return alunorepository.identificarAlunoPeloCartao(uid);
@@ -48,5 +44,40 @@ public class PresencaService {
 
         return StatusPresenca.PRESENTE;
     }
+
+    public Aluno buscarAlunoPeloCartao(String uid){
+        return alunorepository.buscarAlunoPeloCartao(uid);
+    }
+
+    public String registrarPresenca(String uid){
+        Aluno aluno = buscarAlunoPeloCartao(uid);
+
+        if (aluno == null){
+            return "Aluno não encontrado";
+
+        }
+
+        if (!verificarCartaoAtivo(uid)) {
+            return "Cartão inativo";
+        }
+        return "cartão ativo";
+
+        LocalDate data = LocalDate.now();
+        LocalTime horario = LocalTime.now();
+        StatusPresenca status = definirStatusPresença(horario);
+
+
+    }
+
+    public String RegistrarPresença(RegistroPresença registroPresença){
+        return presencarepository.RegistrarPresenca(registroPresença);
+    }
+
+    public List<RegistroPresença> getListaRegistro(){
+        return presencarepository.getListaRegistro();
+    }
+
+
+
 
 }
