@@ -19,11 +19,6 @@ public class PresencaController {
         this.presencaService = presencaService;
     }
 
-    @PostMapping("/geg")
-    public String RegistrarPresenca(@RequestBody RegistroPresença registroPresença){
-        return presencaService.RegistrarPresença(registroPresença);
-    }
-
     @GetMapping("/listpres")
     public List<RegistroPresença> getListaRegistro(){ return presencaService.getListaRegistro();}
 

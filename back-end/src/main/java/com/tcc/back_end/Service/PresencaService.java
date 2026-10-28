@@ -3,6 +3,7 @@ package com.tcc.back_end.Service;
 import com.tcc.back_end.Model.Aluno;
 import com.tcc.back_end.Model.CartãoRFID;
 import com.tcc.back_end.Model.Enum.StatusPresenca;
+import com.tcc.back_end.Model.Enum.TipoMarcacao;
 import com.tcc.back_end.Model.RegistroPresença;
 import com.tcc.back_end.Repository.AlunoRepository;
 import com.tcc.back_end.Repository.PresencaRepository;
@@ -60,11 +61,22 @@ public class PresencaService {
         if (!verificarCartaoAtivo(uid)) {
             return "Cartão inativo";
         }
-        return "cartão ativo";
+
 
         LocalDate data = LocalDate.now();
         LocalTime horario = LocalTime.now();
         StatusPresenca status = definirStatusPresença(horario);
+
+        RegistroPresença registro = new RegistroPresença(
+                1,
+                data,
+                horario,
+                status,
+                TipoMarcacao.ENTRADA,
+                aluno
+        );
+
+        return RegistrarPresença(registro);
 
 
     }
