@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
 import java.util.*;
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/edu")
 public class PresencaController {

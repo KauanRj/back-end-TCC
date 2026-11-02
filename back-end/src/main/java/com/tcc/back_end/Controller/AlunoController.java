@@ -6,6 +6,7 @@ import com.tcc.back_end.Service.AlunoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/edu")
 public class AlunoController {

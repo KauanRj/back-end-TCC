@@ -8,11 +8,9 @@ import java.util.*;
 @Repository
 public class AlunoRepository {
 
-    private List<Aluno> listaDeAlunos;
+    private List<Aluno> listaDeAlunos = new ArrayList<>();
 
-    public AlunoRepository(List<Aluno> listaDeAlunos) {
-        this.listaDeAlunos = listaDeAlunos;
-    }
+
 
     public String CadastrarAluno(Aluno aluno){
         this.listaDeAlunos.add(aluno);
