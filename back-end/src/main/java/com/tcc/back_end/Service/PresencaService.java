@@ -17,6 +17,7 @@ public class PresencaService {
 
     private PresencaRepository presencarepository;
     private AlunoRepository alunorepository;
+    private int proximoId = 1;
 
 
     public PresencaService(PresencaRepository presencarepository, AlunoRepository alunorepository) {
@@ -68,7 +69,7 @@ public class PresencaService {
         StatusPresenca status = definirStatusPresença(horario);
 
         RegistroPresença registro = new RegistroPresença(
-                1,
+                proximoId++,
                 data,
                 horario,
                 status,

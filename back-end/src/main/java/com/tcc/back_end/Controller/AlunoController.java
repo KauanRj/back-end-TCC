@@ -17,7 +17,7 @@ public class AlunoController {
         this.alunoservice = alunoservice;
     }
 
-    @PostMapping("/cads")
+    @PostMapping("/cadsaln")
     public String CadastrarAluno(@RequestBody Aluno aluno){
         return alunoservice.CadastrarAluno(aluno);
     }
@@ -26,4 +26,26 @@ public class AlunoController {
     public List<Aluno> getListaDeAlunos(){
         return alunoservice.getListaDeAlunos();
     }
+
+
+    @GetMapping("/encaln/{id}")
+    public Aluno buscarAlunoPorId(@PathVariable int id){
+        return alunoservice.buscarAlunoPorId(id);
+    }
+
+    @PutMapping("/updatealn/{id}")
+    public String updateAluno(@PathVariable int id,@RequestBody Aluno aluno){
+        return alunoservice.updateAluno(id, aluno);
+    }
+
+    @DeleteMapping("/deletealn/{id}")
+    public String deleteAluno(@PathVariable int id){
+        return alunoservice.deleteAluno(id);
+    }
+
+
+
+
+
+
 }

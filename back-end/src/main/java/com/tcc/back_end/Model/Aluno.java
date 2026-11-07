@@ -10,17 +10,36 @@ public class Aluno {
     private String matricula;
     private LocalDate dataNascimento;
     private CartãoRFID cartao;
+    private String cpf;
+    private Turma turma;
+    private String turno;
+    private String responsasvel;
+    private String parentesco;
+    private String responsavelTelefone;
+    private String responsavelEmail;
+    private String endereco;
+    private LocalDate dataMatricula;
+
 
 
     public Aluno() {
     }
 
-    public Aluno(int id, String nome, String matricula, LocalDate dataNascimento, CartãoRFID cartao) {
+    public Aluno(int id, String nome, String matricula, LocalDate dataNascimento, CartãoRFID cartao, String cpf, Turma turma, String turno, String responsasvel, String parentesco, String responsavelTelefone, String responsavelEmail, String endereco, LocalDate dataMatricula) {
         this.id = id;
         this.nome = nome;
         this.matricula = matricula;
         this.dataNascimento = dataNascimento;
         this.cartao = cartao;
+        this.cpf = cpf;
+        this.turma = turma;
+        this.turno = turno;
+        this.responsasvel = responsasvel;
+        this.parentesco = parentesco;
+        this.responsavelTelefone = responsavelTelefone;
+        this.responsavelEmail = responsavelEmail;
+        this.endereco = endereco;
+        this.dataMatricula = dataMatricula;
     }
 
     public int getId() {
@@ -55,12 +74,84 @@ public class Aluno {
         this.dataNascimento = dataNascimento;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public CartãoRFID getCartao() {
         return cartao;
     }
 
     public void setCartao(CartãoRFID cartao) {
         this.cartao = cartao;
+    }
+
+    public Turma getTurma() {
+        return turma;
+    }
+
+    public void setTurma(Turma turma) {
+        this.turma = turma;
+    }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
+
+    public String getResponsasvel() {
+        return responsasvel;
+    }
+
+    public void setResponsasvel(String responsasvel) {
+        this.responsasvel = responsasvel;
+    }
+
+    public String getParentesco() {
+        return parentesco;
+    }
+
+    public void setParentesco(String parentesco) {
+        this.parentesco = parentesco;
+    }
+
+    public String getResponsavelTelefone() {
+        return responsavelTelefone;
+    }
+
+    public void setResponsavelTelefone(String responsavelTelefone) {
+        this.responsavelTelefone = responsavelTelefone;
+    }
+
+    public String getResponsavelEmail() {
+        return responsavelEmail;
+    }
+
+    public void setResponsavelEmail(String responsavelEmail) {
+        this.responsavelEmail = responsavelEmail;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public LocalDate getDataMatricula() {
+        return dataMatricula;
+    }
+
+    public void setDataMatricula(LocalDate dataMatricula) {
+        this.dataMatricula = dataMatricula;
     }
 
     public int calcularIdade(){

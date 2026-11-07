@@ -22,4 +22,16 @@ public class AlunoService {
     public List<Aluno> getListaDeAlunos(){
         return alunorepository.getListaDeAlunos();
     }
+
+    public Aluno buscarAlunoPorId(int id){
+        return alunorepository.buscarAlunoPorId(id);
+    }
+
+    public String updateAluno(int id, Aluno aluno){
+        return alunorepository.updateAluno(id, aluno);
+    }
+
+    public String deleteAluno(int id){
+        return alunorepository.deleteAluno(id);
+    }
 }

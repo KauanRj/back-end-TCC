@@ -22,9 +22,58 @@ public class AlunoRepository {
         return listaDeAlunos;
     }
 
+
+    public Aluno buscarAlunoPorId(int id){
+        for (Aluno a : listaDeAlunos){
+            if(a.getId() == id){
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public String updateAluno(int id,Aluno alunoUpdate){
+        for (Aluno a : listaDeAlunos){
+            if(a.getId() == id) {
+                a.setId(alunoUpdate.getId());
+                a.setNome(alunoUpdate.getNome());
+                a.setMatricula(alunoUpdate.getMatricula());
+                a.setDataNascimento(alunoUpdate.getDataNascimento());
+                a.setCartao(alunoUpdate.getCartao());
+                a.setCpf(alunoUpdate.getCpf());
+                a.setTurma(alunoUpdate.getTurma());
+                a.setTurno(alunoUpdate.getTurno());
+                a.setResponsasvel(alunoUpdate.getResponsasvel());
+                a.setParentesco(alunoUpdate.getParentesco());
+                a.setResponsavelTelefone(alunoUpdate.getResponsavelTelefone());
+                a.setResponsavelEmail(alunoUpdate.getResponsavelEmail());
+                a.setEndereco(alunoUpdate.getEndereco());
+                a.setDataMatricula(alunoUpdate.getDataMatricula());
+
+                return "Dados do aluno atualizados com sucesso!";
+
+            }
+        }
+        return "Aluno não encontrado!";
+    }
+
+    public String deleteAluno(int id){
+        for(Aluno a : listaDeAlunos){
+            if(a.getId() == id) {
+                listaDeAlunos.remove(a);
+
+                return "Aluno deletado com sucesso!";
+            }
+        }
+
+        return "aluno não encontrado!";
+    }
+
+
+
     public String identificarAlunoPeloCartao(String uid){
         for (Aluno a : listaDeAlunos) {
-            if (a.getCartao().getUid().equals(uid)) {
+            if (a.getCartao() != null && a.getCartao().getUid().equals(uid)) {
                 return a.getNome();
             }
 
@@ -34,7 +83,7 @@ public class AlunoRepository {
 
     public Aluno buscarAlunoPeloCartao(String uid){
         for (Aluno a : listaDeAlunos) {
-            if (a.getCartao().getUid().equals(uid)) {
+            if (a.getCartao() != null && a.getCartao().getUid().equals(uid)) {
                 return a;
             }
 
@@ -44,7 +93,7 @@ public class AlunoRepository {
 
     public boolean verificarCartaoAtivo(String uid){
         for (Aluno a : listaDeAlunos) {
-            if (a.getCartao().getUid().equals(uid)) {
+            if (a.getCartao() != null && a.getCartao().getUid().equals(uid)) {
                 return a.getCartao().isAtivo();
             }
 
