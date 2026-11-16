@@ -35,7 +35,6 @@ public class SalaRepository {
         for(Sala s : listaDeSala){
             if(s.getNumero().equals(numero)) {
 
-                s.setNumero(salaUpdate.getNumero());
                 s.setCapacidade(salaUpdate.getCapacidade());
                 s.setAndar(salaUpdate.getAndar());
                 s.setStatus(salaUpdate.getStatus());

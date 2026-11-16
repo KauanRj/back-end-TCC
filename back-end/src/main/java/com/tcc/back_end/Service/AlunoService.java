@@ -47,12 +47,59 @@ public class AlunoService {
     }
 
     public String updateAluno(int id, Aluno aluno){
+        Aluno alunoatual = alunorepository.buscarAlunoPorId(id);
+
+        if(alunoatual == null){
+            return "Aluno não encontrado! ";
+
+        }
+
+        if(aluno.getTurma() == null || aluno.getTurma().getId() == null){
+            return "É necessário informar uma turma! ";
+
+        }
+
+        Turma turmaNova = turmaRepository.BuscarTurma(aluno.getTurma().getId());
+
+        if(turmaNova == null){
+            return "Turma não encontra !";
+
+        }
+
+        Turma turmaAntiga = alunoatual.getTurma();
+
+        aluno.setTurma(turmaNova);
+
+        String resultado = alunorepository.updateAluno(id, aluno);
+
+        if(turmaAntiga == null || ! Objects.equals(turmaAntiga.getId(),turmaNova.getId())){
+            if(turmaAntiga != null) {
+                turmaAntiga.getAlunos().remove(alunoatual);
 
 
-        return alunorepository.updateAluno(id, aluno);
+            }
+
+
+             turmaNova.getAlunos().add(alunoatual);
+
+        }
+
+        return resultado;
     }
 
     public String deleteAluno(int id){
+
+        Aluno aluno= alunorepository.buscarAlunoPorId(id);
+
+        if(aluno == null){
+            return "Aluno não encontrado !";
+        }
+
+        Turma turma = aluno.getTurma();
+
+        if(turma != null){
+            turma.getAlunos().remove(aluno);
+        }
         return alunorepository.deleteAluno(id);
     }
 }

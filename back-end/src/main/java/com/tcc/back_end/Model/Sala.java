@@ -2,22 +2,25 @@ package com.tcc.back_end.Model;
 
 import com.tcc.back_end.Model.Enum.StatusSala;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Sala {
     private Integer numero;
     private Integer capacidade;
     private String andar;
     private StatusSala status;
-    private Turma turma;
+    private List<Turma> turmas = new ArrayList<>();
 
     public Sala() {
     }
 
-    public Sala(Integer numero, Integer capacidade, String andar, StatusSala status, Turma turma) {
+    public Sala(Integer numero, Integer capacidade, String andar, StatusSala status, List<Turma> turmas) {
         this.numero = numero;
         this.capacidade = capacidade;
         this.andar = andar;
         this.status = status;
-        this.turma = turma;
+        this.turmas = turmas;
     }
 
     public Integer getNumero() {
@@ -52,11 +55,11 @@ public class Sala {
         this.status = status;
     }
 
-    public Turma getTurma() {
-        return turma;
+    public List<Turma> getTurmas() {
+        return turmas;
     }
 
-    public void setTurma(Turma turma) {
-        this.turma = turma;
+    public void setTurmas(List<Turma> turmas) {
+        this.turmas = turmas;
     }
 }

@@ -11,14 +11,17 @@ public class Turma {
     private String curso;
     @JsonManagedReference
     private List<Aluno> alunos = new ArrayList<>();
+    private String  turno;
+
 
     public Turma() {
     }
 
-    public Turma(Integer id, String nome, String curso, List<Aluno> alunos) {
+    public Turma(Integer id, String turno, String curso, String nome, List<Aluno> alunos) {
         this.id = id;
-        this.nome = nome;
+        this.turno = turno;
         this.curso = curso;
+        this.nome = nome;
         this.alunos = alunos;
     }
 
@@ -52,5 +55,13 @@ public class Turma {
 
     public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
+    }
+
+    public String getTurno() {
+        return turno;
+    }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
     }
 }
