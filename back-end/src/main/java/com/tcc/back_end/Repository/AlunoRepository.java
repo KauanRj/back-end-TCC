@@ -35,7 +35,7 @@ public class AlunoRepository {
     public String updateAluno(int id,Aluno alunoUpdate){
         for (Aluno a : listaDeAlunos){
             if(a.getId() == id) {
-                a.setId(alunoUpdate.getId());
+
                 a.setNome(alunoUpdate.getNome());
                 a.setMatricula(alunoUpdate.getMatricula());
                 a.setDataNascimento(alunoUpdate.getDataNascimento());
@@ -43,7 +43,7 @@ public class AlunoRepository {
                 a.setCpf(alunoUpdate.getCpf());
                 a.setTurma(alunoUpdate.getTurma());
                 a.setTurno(alunoUpdate.getTurno());
-                a.setResponsasvel(alunoUpdate.getResponsasvel());
+                a.setResponsasvelNome(alunoUpdate.getResponsasvelNome());
                 a.setParentesco(alunoUpdate.getParentesco());
                 a.setResponsavelTelefone(alunoUpdate.getResponsavelTelefone());
                 a.setResponsavelEmail(alunoUpdate.getResponsavelEmail());

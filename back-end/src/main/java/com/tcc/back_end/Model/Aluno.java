@@ -1,5 +1,7 @@
 package com.tcc.back_end.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -11,9 +13,10 @@ public class Aluno {
     private LocalDate dataNascimento;
     private CartãoRFID cartao;
     private String cpf;
+    @JsonBackReference
     private Turma turma;
     private String turno;
-    private String responsasvel;
+    private String responsasvelNome;
     private String parentesco;
     private String responsavelTelefone;
     private String responsavelEmail;
@@ -25,7 +28,7 @@ public class Aluno {
     public Aluno() {
     }
 
-    public Aluno(int id, String nome, String matricula, LocalDate dataNascimento, CartãoRFID cartao, String cpf, Turma turma, String turno, String responsasvel, String parentesco, String responsavelTelefone, String responsavelEmail, String endereco, LocalDate dataMatricula) {
+    public Aluno(int id, String nome, String matricula, LocalDate dataNascimento, CartãoRFID cartao, String cpf, Turma turma, String turno, String responsasvelNome, String parentesco, String responsavelEmail, String responsavelTelefone, String endereco, LocalDate dataMatricula) {
         this.id = id;
         this.nome = nome;
         this.matricula = matricula;
@@ -34,10 +37,10 @@ public class Aluno {
         this.cpf = cpf;
         this.turma = turma;
         this.turno = turno;
-        this.responsasvel = responsasvel;
+        this.responsasvelNome = responsasvelNome;
         this.parentesco = parentesco;
-        this.responsavelTelefone = responsavelTelefone;
         this.responsavelEmail = responsavelEmail;
+        this.responsavelTelefone = responsavelTelefone;
         this.endereco = endereco;
         this.dataMatricula = dataMatricula;
     }
@@ -106,12 +109,12 @@ public class Aluno {
         this.turno = turno;
     }
 
-    public String getResponsasvel() {
-        return responsasvel;
+    public String getResponsasvelNome() {
+        return responsasvelNome;
     }
 
-    public void setResponsasvel(String responsasvel) {
-        this.responsasvel = responsasvel;
+    public void setResponsasvelNome(String responsasvelNome) {
+        this.responsasvelNome = responsasvelNome;
     }
 
     public String getParentesco() {

@@ -1,7 +1,9 @@
 package com.tcc.back_end.Service;
 
 import com.tcc.back_end.Model.Aluno;
+import com.tcc.back_end.Model.Turma;
 import com.tcc.back_end.Repository.AlunoRepository;
+import com.tcc.back_end.Repository.TurmaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -10,12 +12,29 @@ import java.util.*;
 public class AlunoService {
 
     private AlunoRepository alunorepository;
+    private TurmaRepository turmaRepository;
 
-    public AlunoService(AlunoRepository alunorepository) {
+    public AlunoService(AlunoRepository alunorepository, TurmaRepository turmaRepository) {
         this.alunorepository = alunorepository;
+        this.turmaRepository = turmaRepository;
     }
 
     public String CadastrarAluno(Aluno aluno){
+
+        if (aluno.getTurma() == null || aluno.getTurma().getId() == null){
+            return "É necessario informar uma turma!";
+        }
+
+        Turma turma = turmaRepository.BuscarTurma(aluno.getTurma().getId());
+
+        if(turma == null){
+            return "turma não encontrada!";
+        }
+
+        aluno.setTurma(turma);
+
+        turma.getAlunos().add(aluno);
+
         return alunorepository.CadastrarAluno(aluno);
     }
 
@@ -28,6 +47,8 @@ public class AlunoService {
     }
 
     public String updateAluno(int id, Aluno aluno){
+
+
         return alunorepository.updateAluno(id, aluno);
     }
 

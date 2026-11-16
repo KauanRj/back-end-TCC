@@ -1,12 +1,16 @@
 package com.tcc.back_end.Model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Turma {
     private Integer id;
     private String nome;
     private String curso;
-    private List<Aluno> alunos;
+    @JsonManagedReference
+    private List<Aluno> alunos = new ArrayList<>();
 
     public Turma() {
     }
