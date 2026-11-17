@@ -28,7 +28,7 @@ public class SalaService {
 
         List<Turma> turmasValidas = new ArrayList<>();
 
-        for (Turma turmaInformada : sala.getTurmas(){
+        for (Turma turmaInformada : sala.getTurmas()){
             if (turmaInformada.getId() == null){
                 return "É necessário informa o id da turma! ";
             }
