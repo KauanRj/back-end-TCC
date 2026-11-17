@@ -22,41 +22,13 @@ public class SalaService {
 
     public String CadastrarSala(Sala sala){
 
-        if( sala.getTurmas() == null  || sala.getTurmas().isEmpty()){
-            return "É necessário informar uma turma!";
+        List<Turma> turmasValidas = validarTurmas(sala.getTurmas(), null, false);
+
+        if(turmasValidas == null){
+            return "Turmas inválidas ou já associadas a outra sala!";
         }
 
-        List<Turma> turmasValidas = new ArrayList<>();
-
-        for (Turma turmaInformada : sala.getTurmas()){
-            if (turmaInformada.getId() == null){
-                return "É necessário informa o id da turma! ";
-            }
-
-            Turma turma = turmaRepository.BuscarTurma(turmaInformada.getId());
-
-            if (turma == null ){
-                return "Turma não encontrada";
-            }
-
-            for(Turma turmaExistente : turmasValidas){
-                if (turmaExistente.getTurno().equalsIgnoreCase(turma.getTurno())){
-                    return "Já existe turma cadastrada nesse turno";
-                }
-            }
-
-            for(Sala salaExistente : salaRepository.getListaDeSala()){
-                for (Turma turmaExistente : salaExistente.getTurmas()){
-                    if (turmaExistente.getId().equals(turma.getId())){
-                        return "Essa turma ja esta associada a outra sala";
-                    }
-                }
-            }
-            turmasValidas.add(turma);
-        }
-
-       sala.setTurmas(turmasValidas);
-
+        sala.setTurmas(turmasValidas);
 
         return salaRepository.CadrastarSala(sala);
     }
@@ -70,10 +42,98 @@ public class SalaService {
     }
 
     public String updateSala(Integer numero, Sala sala){
-        return salaRepository.updateSala(numero,sala);
+
+        Sala salaAtual = salaRepository.BuscarSala(numero);
+
+        if(salaAtual == null){
+            return "Sala não encontrada!";
+        }
+
+        List<Turma> turmasValidas = validarTurmas(sala.getTurmas(), numero, true);
+
+        if(turmasValidas == null){
+            return "Turmas inválidas ou com turnos duplicados!";
+        }
+
+        for(Sala salaExistente : salaRepository.getListaDeSala()){
+
+            if(salaExistente.getNumero().equals(numero)){
+                continue;
+            }
+
+            salaExistente.getTurmas().removeIf(turma ->
+                    turmasValidas.stream().anyMatch(nova ->
+                            nova.getId().equals(turma.getId())
+                    )
+            );
+        }
+
+        sala.setTurmas(turmasValidas);
+
+        return salaRepository.updateSala(numero, sala);
     }
 
     public String deleteSala(Integer numero){
+
+        Sala sala = salaRepository.BuscarSala(numero);
+
+        if(sala == null){
+            return "Sala não encontrada!";
+        }
+
+        if(sala.getTurmas() != null && !sala.getTurmas().isEmpty()){
+            return "Não é possível excluir uma sala que possui turmas associadas!";
+        }
+
         return salaRepository.deleteSala(numero);
+    }
+
+    private List<Turma> validarTurmas(List<Turma> turmasInformadas, Integer numeroSala, boolean permitirTransferencia){
+
+        if(turmasInformadas == null || turmasInformadas.isEmpty()){
+            return null;
+        }
+
+        List<Turma> turmasValidas = new ArrayList<>();
+
+        for(Turma turmaInformada : turmasInformadas){
+
+            if(turmaInformada.getId() == null){
+                return null;
+            }
+
+            Turma turma = turmaRepository.BuscarTurma(turmaInformada.getId());
+
+            if(turma == null || turma.getTurno() == null || turma.getTurno().isBlank()){
+                return null;
+            }
+
+            for(Turma existente : turmasValidas){
+                if(existente.getTurno().equalsIgnoreCase(turma.getTurno())){
+                    return null;
+                }
+
+                if(existente.getId().equals(turma.getId())){
+                    return null;
+                }
+            }
+
+            if(!permitirTransferencia){
+
+                for(Sala salaExistente : salaRepository.getListaDeSala()){
+
+                    for(Turma turmaExistente : salaExistente.getTurmas()){
+
+                        if(turmaExistente.getId().equals(turma.getId())){
+                            return null;
+                        }
+                    }
+                }
+            }
+
+            turmasValidas.add(turma);
+        }
+
+        return turmasValidas;
     }
 }
