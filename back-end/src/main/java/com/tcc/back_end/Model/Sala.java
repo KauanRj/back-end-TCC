@@ -20,7 +20,7 @@ public class Sala {
         this.capacidade = capacidade;
         this.andar = andar;
         this.status = status;
-        this.turmas = turmas;
+        this.turmas = turmas != null ? turmas : new ArrayList<>();
     }
 
     public Integer getNumero() {
@@ -60,6 +60,6 @@ public class Sala {
     }
 
     public void setTurmas(List<Turma> turmas) {
-        this.turmas = turmas;
+        this.turmas = turmas != null ? turmas : new ArrayList<>();
     }
 }

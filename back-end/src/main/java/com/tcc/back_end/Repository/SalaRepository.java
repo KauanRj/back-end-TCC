@@ -38,7 +38,7 @@ public class SalaRepository {
                 s.setCapacidade(salaUpdate.getCapacidade());
                 s.setAndar(salaUpdate.getAndar());
                 s.setStatus(salaUpdate.getStatus());
-                s.setTurma(salaUpdate.getTurma());
+                s.setTurmas(salaUpdate.getTurmas());
 
                 return "Sala atualizada com sucesso!";
 

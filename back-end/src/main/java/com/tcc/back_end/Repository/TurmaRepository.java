@@ -36,6 +36,7 @@ public class TurmaRepository {
 
                 t.setCurso(turmaUpdate.getCurso());
                 t.setNome(turmaUpdate.getNome());
+                t.setTurno(turmaUpdate.getTurno());
 
                 return "Dados da turma atualizados!";
             }

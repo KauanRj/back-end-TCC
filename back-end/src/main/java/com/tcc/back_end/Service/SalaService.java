@@ -6,6 +6,7 @@ import com.tcc.back_end.Repository.SalaRepository;
 import com.tcc.back_end.Repository.TurmaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,17 +22,40 @@ public class SalaService {
 
     public String CadastrarSala(Sala sala){
 
-        if( sala.getTurma() == null || sala.getTurma().getId() == null){
+        if( sala.getTurmas() == null  || sala.getTurmas().isEmpty()){
             return "É necessário informar uma turma!";
         }
 
-        Turma turma = turmaRepository.BuscarTurma(sala.getTurma().getId());
+        List<Turma> turmasValidas = new ArrayList<>();
 
-        if(turma == null){
-            return "turma não encontrada!";
+        for (Turma turmaInformada : sala.getTurmas(){
+            if (turmaInformada.getId() == null){
+                return "É necessário informa o id da turma! ";
+            }
+
+            Turma turma = turmaRepository.BuscarTurma(turmaInformada.getId());
+
+            if (turma == null ){
+                return "Turma não encontrada";
+            }
+
+            for(Turma turmaExistente : turmasValidas){
+                if (turmaExistente.getTurno().equalsIgnoreCase(turma.getTurno())){
+                    return "Já existe turma cadastrada nesse turno";
+                }
+            }
+
+            for(Sala salaExistente : salaRepository.getListaDeSala()){
+                for (Turma turmaExistente : salaExistente.getTurmas()){
+                    if (turmaExistente.getId().equals(turma.getId())){
+                        return "Essa turma ja esta associada a outra sala";
+                    }
+                }
+            }
+            turmasValidas.add(turma);
         }
 
-       sala.setTurma(turma);
+       sala.setTurmas(turmasValidas);
 
 
         return salaRepository.CadrastarSala(sala);
