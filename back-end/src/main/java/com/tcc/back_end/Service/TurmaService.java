@@ -30,6 +30,7 @@ public class TurmaService {
         return turmaRepository.BuscarTurma(id);
     }
 
+
     public String updateTurma(Integer id, Turma turma){
 
         Turma turmaAtual = turmaRepository.BuscarTurma(id);
@@ -43,6 +44,13 @@ public class TurmaService {
         }
 
         for(Sala sala : salaRepository.getListaDeSala()){
+
+            boolean turmaPertenceASala = sala.getTurmas().stream()
+                    .anyMatch(t -> t.getId().equals(id));
+
+            if(!turmaPertenceASala){
+                continue;
+            }
 
             for(Turma turmaSala : sala.getTurmas()){
 
@@ -61,7 +69,25 @@ public class TurmaService {
         return turmaRepository.updateTurma(id, turma);
     }
 
+
+
     public String deleteTurma(Integer id){
+
+        Turma turma = turmaRepository.BuscarTurma(id);
+
+        if(turma == null){
+            return "Turma não encontrada!";
+        }
+
+        for(Sala sala : salaRepository.getListaDeSala()){
+
+            sala.getTurmas().removeIf(t ->
+                    t.getId().equals(id)
+            );
+
+        }
+
         return turmaRepository.deleteTurma(id);
     }
+
 }

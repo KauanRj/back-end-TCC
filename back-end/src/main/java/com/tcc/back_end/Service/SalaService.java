@@ -41,6 +41,7 @@ public class SalaService {
         return salaRepository.BuscarSala(numero);
     }
 
+
     public String updateSala(Integer numero, Sala sala){
 
         Sala salaAtual = salaRepository.BuscarSala(numero);
@@ -53,6 +54,14 @@ public class SalaService {
 
         if(turmasValidas == null){
             return "Turmas inválidas ou com turnos duplicados!";
+        }
+
+        sala.setTurmas(turmasValidas);
+
+        String resultado = salaRepository.updateSala(numero, sala);
+
+        if(!resultado.equals("Sala atualizada com sucesso!")){
+            return resultado;
         }
 
         for(Sala salaExistente : salaRepository.getListaDeSala()){
@@ -68,10 +77,9 @@ public class SalaService {
             );
         }
 
-        sala.setTurmas(turmasValidas);
-
-        return salaRepository.updateSala(numero, sala);
+        return resultado;
     }
+
 
     public String deleteSala(Integer numero){
 
@@ -91,7 +99,7 @@ public class SalaService {
     private List<Turma> validarTurmas(List<Turma> turmasInformadas, Integer numeroSala, boolean permitirTransferencia){
 
         if(turmasInformadas == null || turmasInformadas.isEmpty()){
-            return null;
+            return new ArrayList<>();
         }
 
         List<Turma> turmasValidas = new ArrayList<>();

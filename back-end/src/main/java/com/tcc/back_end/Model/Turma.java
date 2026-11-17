@@ -22,7 +22,7 @@ public class Turma {
         this.turno = turno;
         this.curso = curso;
         this.nome = nome;
-        this.alunos = alunos;
+        this.alunos = alunos != null ? alunos : new ArrayList<>();
     }
 
     public Integer getId() {
@@ -62,6 +62,6 @@ public class Turma {
     }
 
     public void setTurno(String turno) {
-        this.turno = turno;
+        this.alunos = alunos != null ? alunos : new ArrayList<>();
     }
 }
