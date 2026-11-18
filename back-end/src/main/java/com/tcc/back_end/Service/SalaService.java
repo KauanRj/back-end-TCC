@@ -22,6 +22,18 @@ public class SalaService {
 
     public String CadastrarSala(Sala sala){
 
+        if(sala.getNumero() == null){
+            return "É necessário informar o número da sala!";
+        }
+
+        if(sala.getCapacidade() == null || sala.getCapacidade() <= 0){
+            return "A capacidade da sala deve ser maior que zero!";
+        }
+
+        if(salaRepository.BuscarSala(sala.getNumero()) != null){
+            return "Já existe uma sala com esse número!";
+        }
+
         List<Turma> turmasValidas = validarTurmas(sala.getTurmas(), null, false);
 
         if(turmasValidas == null){
@@ -48,6 +60,10 @@ public class SalaService {
 
         if(salaAtual == null){
             return "Sala não encontrada!";
+        }
+
+        if(sala.getCapacidade() == null || sala.getCapacidade() <= 0){
+            return "A capacidade da sala deve ser maior que zero!";
         }
 
         List<Turma> turmasValidas = validarTurmas(sala.getTurmas(), numero, true);

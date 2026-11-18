@@ -32,7 +32,35 @@ public class AlunoRepository {
         return null;
     }
 
+    public Aluno buscarAlunoPorCpf(String cpf){
+
+        for(Aluno a : listaDeAlunos){
+
+            if(a.getCpf() != null && a.getCpf().equals(cpf)){
+                return a;
+            }
+        }
+
+        return null;
+    }
+
+    public Aluno buscarAlunoPorMatricula(String matricula){
+
+        for(Aluno a : listaDeAlunos){
+
+            if(a.getMatricula() != null && a.getMatricula().equals(matricula)){
+                return a;
+            }
+        }
+
+        return null;
+    }
+
     public String updateAluno(int id,Aluno alunoUpdate){
+
+        if(alunoUpdate == null){
+            return "Os dados do aluno não foram informados!";
+        }
         for (Aluno a : listaDeAlunos){
             if(a.getId() == id) {
 
@@ -58,46 +86,61 @@ public class AlunoRepository {
     }
 
     public String deleteAluno(int id){
-        for(Aluno a : listaDeAlunos){
-            if(a.getId() == id) {
-                listaDeAlunos.remove(a);
 
-                return "Aluno deletado com sucesso!";
-            }
+        boolean removido = listaDeAlunos.removeIf(
+                aluno -> aluno.getId() == id
+        );
+
+        if(removido){
+            return "Aluno deletado com sucesso!";
         }
 
-        return "aluno não encontrado!";
+        return "Aluno não encontrado!";
     }
+
 
 
 
     public String identificarAlunoPeloCartao(String uid){
+
         for (Aluno a : listaDeAlunos) {
-            if (a.getCartao() != null && a.getCartao().getUid().equals(uid)) {
+
+            if(a.getCartao() != null &&
+                    Objects.equals(a.getCartao().getUid(), uid)){
+
                 return a.getNome();
             }
-
         }
-        return "Aluno não encotrado";
+
+        return "Aluno não encontrado";
     }
 
     public Aluno buscarAlunoPeloCartao(String uid){
+
         for (Aluno a : listaDeAlunos) {
-            if (a.getCartao() != null && a.getCartao().getUid().equals(uid)) {
+
+            if(a.getCartao() != null &&
+                    Objects.equals(a.getCartao().getUid(), uid)){
+
                 return a;
             }
-
         }
+
         return null;
     }
 
     public boolean verificarCartaoAtivo(String uid){
+
         for (Aluno a : listaDeAlunos) {
-            if (a.getCartao() != null && a.getCartao().getUid().equals(uid)) {
+
+            if(a.getCartao() != null &&
+                    Objects.equals(a.getCartao().getUid(), uid)){
+
                 return a.getCartao().isAtivo();
             }
-
         }
+
         return false;
     }
+
 }

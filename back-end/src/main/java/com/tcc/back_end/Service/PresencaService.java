@@ -26,18 +26,39 @@ public class PresencaService {
     }
 
 
+    public String identificarAlunoPeloCartao(String uid){
 
+        if(uid == null || uid.isBlank()){
+            return "UID do cartão não informado!";
+        }
 
-   public String identificarAlunoPeloCartao(String uid){
         return alunorepository.identificarAlunoPeloCartao(uid);
-   }
-
+    }
 
     public boolean verificarCartaoAtivo(String uid){
+
+        if(uid == null || uid.isBlank()){
+            return false;
+        }
+
         return alunorepository.verificarCartaoAtivo(uid);
     }
 
+    public Aluno buscarAlunoPeloCartao(String uid){
+
+        if(uid == null || uid.isBlank()){
+            return null;
+        }
+
+        return alunorepository.buscarAlunoPeloCartao(uid);
+    }
+
     public StatusPresenca definirStatusPresença(LocalTime horario){
+
+        if(horario == null){
+            return null;
+        }
+
         LocalTime limite = LocalTime.of(7,10);
 
         if(horario.isAfter(limite)){
@@ -47,39 +68,49 @@ public class PresencaService {
         return StatusPresenca.PRESENTE;
     }
 
-    public Aluno buscarAlunoPeloCartao(String uid){
-        return alunorepository.buscarAlunoPeloCartao(uid);
-    }
+
 
     public String registrarPresenca(String uid){
-        Aluno aluno = buscarAlunoPeloCartao(uid);
 
-        if (aluno == null){
-            return "Aluno não encontrado";
-
+        if(uid == null || uid.isBlank()){
+            return "UID do cartão não informado!";
         }
 
-        if (!verificarCartaoAtivo(uid)) {
+        Aluno aluno = buscarAlunoPeloCartao(uid);
+
+        if(aluno == null){
+            return "Aluno não encontrado";
+        }
+
+        if(!verificarCartaoAtivo(uid)){
             return "Cartão inativo";
         }
 
-
         LocalDate data = LocalDate.now();
+
+        if(presencarepository.verificarEntradaHoje(aluno.getId(), data)){
+            return "Aluno já possui uma entrada registrada hoje!";
+        }
+
         LocalTime horario = LocalTime.now();
+
         StatusPresenca status = definirStatusPresença(horario);
 
         RegistroPresença registro = new RegistroPresença(
-                proximoId++,
+                proximoId,
                 data,
                 horario,
                 status,
                 TipoMarcacao.ENTRADA,
                 aluno
         );
+        String resultado = RegistrarPresença(registro);
 
-        return RegistrarPresença(registro);
+        if(resultado.equals("Registro salvo com sucesso!!")){
+            proximoId++;
+        }
 
-
+        return resultado;
     }
 
     public String RegistrarPresença(RegistroPresença registroPresença){

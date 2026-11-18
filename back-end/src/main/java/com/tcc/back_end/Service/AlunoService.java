@@ -21,14 +21,46 @@ public class AlunoService {
 
     public String CadastrarAluno(Aluno aluno){
 
+        if(aluno.getId() == 0){
+            return "É necessário informar o ID do aluno!";
+        }
+
+        if(alunorepository.buscarAlunoPorId(aluno.getId()) != null){
+            return "Já existe um aluno com esse ID!";
+        }
+
+        if(aluno.getCpf() == null || aluno.getCpf().isBlank()){
+            return "É necessário informar o CPF!";
+        }
+
+        if(alunorepository.buscarAlunoPorCpf(aluno.getCpf()) != null){
+            return "Esse CPF já está cadastrado para outro aluno!";
+        }
+
+        if(aluno.getMatricula() == null || aluno.getMatricula().isBlank()){
+            return "É necessário informar a matrícula!";
+        }
+
+        if(alunorepository.buscarAlunoPorMatricula(aluno.getMatricula()) != null){
+            return "Essa matrícula já está cadastrada para outro aluno!";
+        }
+
+        if(aluno.getCartao() == null || aluno.getCartao().getUid() == null || aluno.getCartao().getUid().isBlank()){
+            return "É necessário informar um cartão RFID válido!";
+        }
+
+        if(alunorepository.buscarAlunoPeloCartao(aluno.getCartao().getUid()) != null){
+            return "Esse cartão RFID já está cadastrado para outro aluno!";
+        }
+
         if (aluno.getTurma() == null || aluno.getTurma().getId() == null){
-            return "É necessario informar uma turma!";
+            return "É necessário informar uma turma!";
         }
 
         Turma turma = turmaRepository.BuscarTurma(aluno.getTurma().getId());
 
         if(turma == null){
-            return "turma não encontrada!";
+            return "Turma não encontrada!";
         }
 
         aluno.setTurma(turma);
@@ -47,23 +79,51 @@ public class AlunoService {
     }
 
     public String updateAluno(int id, Aluno aluno){
+
         Aluno alunoatual = alunorepository.buscarAlunoPorId(id);
 
         if(alunoatual == null){
-            return "Aluno não encontrado! ";
+            return "Aluno não encontrado!";
+        }
 
+        if(aluno.getCpf() == null || aluno.getCpf().isBlank()){
+            return "É necessário informar o CPF!";
+        }
+
+        Aluno alunoCpf = alunorepository.buscarAlunoPorCpf(aluno.getCpf());
+
+        if(alunoCpf != null && alunoCpf.getId() != id){
+            return "Esse CPF já está cadastrado para outro aluno!";
+        }
+
+        if(aluno.getMatricula() == null || aluno.getMatricula().isBlank()){
+            return "É necessário informar a matrícula!";
+        }
+
+        Aluno alunoMatricula = alunorepository.buscarAlunoPorMatricula(aluno.getMatricula());
+
+        if(alunoMatricula != null && alunoMatricula.getId() != id){
+            return "Essa matrícula já está cadastrada para outro aluno!";
+        }
+
+        if(aluno.getCartao() == null || aluno.getCartao().getUid() == null || aluno.getCartao().getUid().isBlank()){
+            return "É necessário informar um cartão RFID válido!";
+        }
+
+        Aluno alunoCartao = alunorepository.buscarAlunoPeloCartao(aluno.getCartao().getUid());
+
+        if(alunoCartao != null && alunoCartao.getId() != id){
+            return "Esse cartão RFID já está cadastrado para outro aluno!";
         }
 
         if(aluno.getTurma() == null || aluno.getTurma().getId() == null){
-            return "É necessário informar uma turma! ";
-
+            return "É necessário informar uma turma!";
         }
 
         Turma turmaNova = turmaRepository.BuscarTurma(aluno.getTurma().getId());
 
         if(turmaNova == null){
-            return "Turma não encontra !";
-
+            return "Turma não encontrada!";
         }
 
         Turma turmaAntiga = alunoatual.getTurma();
@@ -72,16 +132,13 @@ public class AlunoService {
 
         String resultado = alunorepository.updateAluno(id, aluno);
 
-        if(turmaAntiga == null || ! Objects.equals(turmaAntiga.getId(),turmaNova.getId())){
-            if(turmaAntiga != null) {
+        if(turmaAntiga == null || !Objects.equals(turmaAntiga.getId(), turmaNova.getId())){
+
+            if(turmaAntiga != null){
                 turmaAntiga.getAlunos().remove(alunoatual);
-
-
             }
 
-
-             turmaNova.getAlunos().add(alunoatual);
-
+            turmaNova.getAlunos().add(alunoatual);
         }
 
         return resultado;

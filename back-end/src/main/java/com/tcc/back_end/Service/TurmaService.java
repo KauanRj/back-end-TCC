@@ -19,6 +19,19 @@ public class TurmaService {
     }
 
     public String CadastrarTurma(Turma turma){
+
+        if(turma.getId() == null){
+            return "É necessário informar o ID da turma!";
+        }
+
+        if(turmaRepository.BuscarTurma(turma.getId()) != null){
+            return "Já existe uma turma com esse ID!";
+        }
+
+        if(turma.getTurno() == null || turma.getTurno().isBlank()){
+            return "É necessário informar o turno!";
+        }
+
         return turmaRepository.CadastrarTurma(turma);
     }
 
@@ -77,6 +90,10 @@ public class TurmaService {
 
         if(turma == null){
             return "Turma não encontrada!";
+        }
+
+        if(turma.getAlunos() != null && !turma.getAlunos().isEmpty()){
+            return "Não é possível excluir uma turma que possui alunos!";
         }
 
         for(Sala sala : salaRepository.getListaDeSala()){

@@ -22,18 +22,30 @@ public class SalaRepository {
     }
 
     public Sala BuscarSala(Integer numero){
+
+        if(numero == null){
+            return null;
+        }
+
         for(Sala s : listaDeSala){
-            if (s.getNumero().equals(numero)){
+
+            if(s.getNumero() != null && s.getNumero().equals(numero)){
                 return s;
             }
-
         }
+
         return null;
     }
 
     public String updateSala(Integer numero, Sala salaUpdate){
+
+        if(numero == null || salaUpdate == null){
+            return "É necessário informar os dados da sala!";
+        }
+
         for(Sala s : listaDeSala){
-            if(s.getNumero().equals(numero)) {
+
+            if(s.getNumero() != null && s.getNumero().equals(numero)){
 
                 s.setCapacidade(salaUpdate.getCapacidade());
                 s.setAndar(salaUpdate.getAndar());
@@ -41,20 +53,27 @@ public class SalaRepository {
                 s.setTurmas(salaUpdate.getTurmas());
 
                 return "Sala atualizada com sucesso!";
-
             }
         }
+
         return "Sala não encontrada.";
     }
 
     public String deleteSala(Integer numero){
-        for( Sala s : listaDeSala){
-            if(s.getNumero().equals(numero)){
-                listaDeSala.remove(s);
 
-                return "Sala deletada com sucesso!";
-            }
+        if(numero == null){
+            return "É necessário informar o número da sala!";
         }
+
+        boolean removida = listaDeSala.removeIf(
+                sala -> sala.getNumero() != null &&
+                        sala.getNumero().equals(numero)
+        );
+
+        if(removida){
+            return "Sala deletada com sucesso!";
+        }
+
         return "Sala não encontrada.";
     }
 

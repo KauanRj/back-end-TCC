@@ -21,16 +21,30 @@ public class TurmaRepository {
         return "Turma cadastrada com sucesso!";
     }
 
+
     public Turma BuscarTurma(Integer id){
+
+        if(id == null){
+            return null;
+        }
+
         for (Turma t : listaDeTurma){
-            if (t.getId().equals(id)){
+
+            if(t.getId() != null && t.getId().equals(id)){
                 return t;
             }
         }
+
         return null;
     }
 
+
     public String updateTurma(Integer id, Turma turmaUpdate){
+
+        if(id == null || turmaUpdate == null){
+            return "É necessário informar os dados da turma!";
+        }
+
         for(Turma t: listaDeTurma){
             if (t.getId().equals(id)){
 
@@ -45,13 +59,20 @@ public class TurmaRepository {
     }
 
     public String deleteTurma(Integer id){
-        for (Turma t : listaDeTurma){
-            if (t.getId().equals(id)){
-                listaDeTurma.remove(t);
 
-                return "Turma deletada com sucesso!";
-            }
+        if(id == null){
+            return "É necessário informar o ID da turma!";
         }
-        return "Turma não encontrada";
+
+        boolean removida = listaDeTurma.removeIf(
+                turma -> turma.getId() != null &&
+                        turma.getId().equals(id)
+        );
+
+        if(removida){
+            return "Turma deletada com sucesso!";
+        }
+
+        return "Turma não encontrada!";
     }
 }
