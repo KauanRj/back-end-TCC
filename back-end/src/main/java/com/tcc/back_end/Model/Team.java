@@ -1,7 +1,7 @@
 package com.tcc.back_end.Model;
 
 import com.tcc.back_end.Model.Enum.TipoAcesso;
-
+import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 public class Team {
@@ -23,6 +23,10 @@ public class Team {
     private String senha;
     private TipoAcesso tipoAcesso;
     private boolean acessoAtivo;
+    private String fotoPerfil;
+    private LocalDateTime ultimoAcesso;
+    private LocalDateTime dataCriacaoConta;
+    private LocalDateTime dataAlteracaoSenha;
 
     public Team() {
     }
@@ -181,5 +185,37 @@ public class Team {
 
     public void setAcessoAtivo(boolean acessoAtivo) {
         this.acessoAtivo = acessoAtivo;
+    }
+
+    public String getFotoPerfil() {
+        return fotoPerfil;
+    }
+
+    public void setFotoPerfil(String fotoPerfil) {
+        this.fotoPerfil = fotoPerfil;
+    }
+
+    public LocalDateTime getUltimoAcesso() {
+        return ultimoAcesso;
+    }
+
+    public void setUltimoAcesso(LocalDateTime ultimoAcesso) {
+        this.ultimoAcesso = ultimoAcesso;
+    }
+
+    public LocalDateTime getDataCriacaoConta() {
+        return dataCriacaoConta;
+    }
+
+    public void setDataCriacaoConta(LocalDateTime dataCriacaoConta) {
+        this.dataCriacaoConta = dataCriacaoConta;
+    }
+
+    public LocalDateTime getDataAlteracaoSenha() {
+        return dataAlteracaoSenha;
+    }
+
+    public void setDataAlteracaoSenha(LocalDateTime dataAlteracaoSenha) {
+        this.dataAlteracaoSenha = dataAlteracaoSenha;
     }
 }

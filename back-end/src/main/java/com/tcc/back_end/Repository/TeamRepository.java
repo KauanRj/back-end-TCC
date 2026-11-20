@@ -95,6 +95,10 @@ public class TeamRepository {
                 t.setSenha(teamUpdate.getSenha());
                 t.setTipoAcesso(teamUpdate.getTipoAcesso());
                 t.setAcessoAtivo(teamUpdate.isAcessoAtivo());
+                t.setFotoPerfil(teamUpdate.getFotoPerfil());
+                t.setUltimoAcesso(teamUpdate.getUltimoAcesso());
+                t.setDataCriacaoConta(teamUpdate.getDataCriacaoConta());
+                t.setDataAlteracaoSenha(teamUpdate.getDataAlteracaoSenha());
 
                 return "Profissional atualizado com sucesso!";
             }
@@ -116,5 +120,23 @@ public class TeamRepository {
         }
 
         return "Profissional não encontrado!";
+    }
+
+    public String atualizarDadosPerfil(Integer id, String nome,
+                                       String email, String telefone,
+                                       String fotoPerfil) {
+
+        Team team = buscarTeamPorId(id);
+
+        if (team == null) {
+            return "Profissional não encontrado!";
+        }
+
+        team.setNome(nome);
+        team.setEmail(email);
+        team.setTelefone(telefone);
+        team.setFotoPerfil(fotoPerfil);
+
+        return "Perfil atualizado com sucesso!";
     }
 }

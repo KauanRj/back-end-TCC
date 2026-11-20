@@ -5,7 +5,7 @@ import com.tcc.back_end.Model.Team;
 import com.tcc.back_end.Model.Enum.TipoAcesso;
 import com.tcc.back_end.Repository.TeamRepository;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -64,6 +64,7 @@ public class TeamService {
         }
 
         team.setAcessoAtivo(true);
+        team.setDataCriacaoConta(LocalDateTime.now());
 
         return teamRepository.cadastrarTeam(team);
     }
